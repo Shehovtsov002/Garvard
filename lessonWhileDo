@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int input = 0;
+    int number = 65;
+    int prev = 0;
+    
+    do{
+        printf("\nInput number: ");
+        scanf("%d", &input);
+        
+        if(prev < abs(number-input))
+            printf("Холоднее");
+        else
+            printf("Теплее");
+        prev = number-input;
+    }while(input != number);
+    printf("Победа!");
+    
+    return 0;
+}
