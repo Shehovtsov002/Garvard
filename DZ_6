@@ -1,0 +1,22 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    int N = 0;
+    int sum1 = 0, sum2 = 0, sum3 = 0;
+    printf("Сколько считать?");
+    scanf("%d", &N);
+    for(int i = 0; i <= N; i++){
+        sum1 += i;
+        if (i % 2 == 0)
+            sum2 += i;
+        else
+            sum3 += i;
+    }
+    
+    printf("Sum = %d \n", sum1);
+    printf("Sum odd = %d \n", sum2);
+    printf("Sum even = %d \n", sum3);
+    
+    return 0;
+}
