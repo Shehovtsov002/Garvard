@@ -1,0 +1,29 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    
+    int pass = 213567;
+    int input = 0;
+    
+    do{
+        printf("\nEnter password: ");
+        scanf("%d", &input);
+    }while(pass!=input);
+    printf("\nSuccess!");
+    
+    while(pass!=input){
+        printf("\nEnter password: ");
+        scanf("%d", &input);
+    }
+    printf("\nSuccess!");
+    
+    for(; pass!=input;){
+        printf("\nEnter password: ");
+        scanf("%d", &input);
+    }
+    printf("\nSuccess!");
+    
+
+    return 0;
+}
