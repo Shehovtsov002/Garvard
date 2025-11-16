@@ -1,0 +1,31 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+    // char name[15];
+    // fgets(name, sizeof(name), stdin);
+    // fgets(куда_сохранить, сколько, stdin)
+    char alphabet[27] = "abcdefghijklmnopqrstuvwxyz\0";
+    char inp[10];
+    int key = 1;
+    fgets(inp, sizeof(inp), stdin);
+    scanf("%d", &key);
+    for(int i = 0; inp[i] != '\0'; i++){
+        
+        for(int j = 0; j < 26; j++){
+            if (inp[i] == alphabet[j]){
+                inp[i] = alphabet[(j+key)%26];
+                break;
+            }
+        }
+        
+    }
+    printf("%s", inp);
+    // input[5] hello 
+    // input[0] == alphabet[j]
+    //     input[0] = alphabet[j+3]
+    
+    
+
+    return 0;
+}
