@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <time.h>
+
+int getInt(){
+    int rnd = rand() % 100; 
+    return rnd;
+}
+
+void fillArr(int *arr, int size){
+    for(int i = 0; i < size; i++){
+        arr[i] = getInt();
+    }
+}
+
+int find(int *arr, int size, int f){
+    for(int i = 0; i < size; i++){
+        if (arr[i] == f)
+            return i;
+    }
+    return -1;
+}
+
+void printArr(int *arr, int size){
+    for(int i = 0; i < size; i++){
+        printf("%d\n", arr[i]);
+    }
+}
+
+int main() {
+    const int SIZE = 100;
+    int arr[SIZE];
+    fillArr(arr, SIZE);
+    printArr(arr, SIZE);
+    
+    int index = find(arr, SIZE, 50);
+    if(index >= 0){
+        printf("Exist");
+    }
+    else{
+        printf("Don`t exist");
+    }
+    
+    
+    return 0;
+}
