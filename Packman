@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Как он работает?
+// Ходит(wasd) напр: wddsa - пойти вверх, 2 раза вправо, вниз, влево
+// Как работает карта? # - стены, @ - пакман, + - сборный предмет, 0 - привидение
+const int X = 10;
+const int Y = 10;
+int map[10][10] = {
+    {'#','#','#','#','#','#','#','#','#','#'},
+    {'#',' ',' ','#',' ','#',' ','#',' ','#'},
+    {'#',' ',' ','#',' ',' ',' ','#',' ','#'},
+    {'#',' ',' ',' ',' ','#',' ',' ',' ','#'},
+    {'#','#','#','#',' ','#','#','#','#','#'},
+    {'#',' ',' ',' ',' ',' ',' ',' ',' ','#'},
+    {'#',' ','#','#','#',' ',' ',' ',' ','#'},
+    {'#',' ',' ',' ','#',' ',' ',' ',' ','#'},
+    {'#',' ',' ',' ','#',' ',' ',' ',' ','#'},
+    {'#','#','#','#','#','#','#','#','#','#'}
+};
+
+void printMap(){
+    for(int i = 0; i < X; i++){
+        for(int j = 0; j < Y; j++){
+            printf("%c", map[i][j]);
+        }
+            printf("\n");
+    }
+            printf("\n");
+}
+
+int x = 5;
+int y = 7;
+
+void _moveTo(int _x, int _y){
+    map[x][y] = ' ';
+    x = _x;
+    y = _y;
+    map[x][y] = '@';
+    printMap();
+}
+
+void moveTo(char dir){
+    switch(dir){
+        case 'w':
+            if(x-1 < 0) break;
+            if(map[x-1][y] == '#') break;
+            _moveTo(x-1, y);
+        break;
+
+        case 'a':
+            if(y-1 < 0) break;
+            if(map[x][y-1] == '#') break;
+            _moveTo(x, y-1);
+        break;
+
+        case 's':
+            if(x+1 > X-1) break;
+            if(map[x+1][y] == '#') break;
+            _moveTo(x+1, y);
+        break;
+
+        case 'd':
+            if(y+1 > Y+1) break;
+            if(map[x][y+1] == '#') break;
+            _moveTo(x, y+1);
+        break;
+    }
+}
+
+int main(){
+    map[x][y] = '@';
+    printMap();
+    char dir;
+
+    do{
+        scanf("%c", &dir);
+        moveTo(dir);
+    }while(dir != 'q');
+
+    return 0;
+}
