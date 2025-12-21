@@ -8,11 +8,26 @@
 // Ходит(wasd) напр: wddsa - пойти вверх, 2 раза вправо, вниз, влево
 // Как работает карта? # - стены, @ - пакман, + - сборный предмет, 0 - привидение
 
+typedef struct{
+    int hp;
+    int damage;
+    int x;
+    int y;
+    char ap;
+} Unit;
+
+void createUnit(Unit *unit, int hp, int damage, int x, int y, char ap){
+    unit->hp = hp;
+    unit->damage = damage;
+    unit->x = x;
+    unit->y = y;
+    unit->ap = ap;
+}
+
 const int X = 10;
 const int Y = 10;
-// Пакман координаты
-int x = 5;
-int y = 7;
+// Пакман
+Unit pac;
 // Набранные очки
 int score = 0;
 
@@ -29,6 +44,7 @@ int map[10][10] = {
     {'#','#','#','#','#','#','#','#','#','#'}
 };
 
+
 void printMap(){
     printf("Score = %d\n", score);
 
@@ -42,21 +58,21 @@ void printMap(){
 }
 
 void addScore(){
-    if(map[x][y]=='+'){
+    if(map[pac.x][pac.y]=='+'){
         score = score + 1;
     }
 }
 
 void _moveTo(int _x, int _y){
     // Старые координаты меняем на пустоту
-    map[x][y] = ' ';
+    map[pac.x][pac.y] = ' ';
     // Задаем новые координаты
-    x = _x;
-    y = _y;
+    pac.x = _x;
+    pac.y = _y;
     // Проверяем добавить ли очки
     addScore();
     // Двигаем пакмана
-    map[x][y] = '@';
+    map[pac.x][pac.y] = '@';
     // Перерисовываем карту
     printMap();
 }
@@ -64,33 +80,35 @@ void _moveTo(int _x, int _y){
 void moveTo(char dir){
     switch(dir){
         case 'w':
-            if(x-1 < 0) break;
-            if(map[x-1][y] == '#') break;
-            _moveTo(x-1, y);
+            if(pac.x-1 < 0) break;
+            if(map[pac.x-1][pac.y] == '#') break;
+            _moveTo(pac.x-1, pac.y);
         break;
 
         case 'a':
-            if(y-1 < 0) break;
-            if(map[x][y-1] == '#') break;
-            _moveTo(x, y-1);
+            if(pac.y-1 < 0) break;
+            if(map[pac.x][pac.y-1] == '#') break;
+            _moveTo(pac.x, pac.y-1);
         break;
 
         case 's':
-            if(x+1 > X-1) break;
-            if(map[x+1][y] == '#') break;
-            _moveTo(x+1, y);
+            if(pac.x+1 > X-1) break;
+            if(map[pac.x+1][pac.y] == '#') break;
+            _moveTo(pac.x+1, pac.y);
         break;
 
         case 'd':
-            if(y+1 > Y+1) break;
-            if(map[x][y+1] == '#') break;
-            _moveTo(x, y+1);
+            if(pac.y+1 > Y+1) break;
+            if(map[pac.x][pac.y+1] == '#') break;
+            _moveTo(pac.x, pac.y+1);
         break;
     }
 }
 
 int main(){
-    map[x][y] = '@';
+    createUnit(&pac, 100, 25, 5, 7, '@');
+
+    map[pac.x][pac.y] = pac.ap;
     printMap();
     char dir;
 
