@@ -16,12 +16,11 @@ typedef struct{
     char ap;
 } Unit;
 
-void createUnit(Unit *unit, int hp, int damage, int x, int y, char ap){
-    unit->hp = hp;
-    unit->damage = damage;
-    unit->x = x;
-    unit->y = y;
-    unit->ap = ap;
+void takeDamage(Unit *agr, Unit *def){
+    def->hp = def->hp - agr->damage;
+    if(def->hp <= 0){
+        printf("Вы проиграли!");
+    }
 }
 
 const int X = 10;
@@ -44,6 +43,14 @@ int map[10][10] = {
     {'#','#','#','#','#','#','#','#','#','#'}
 };
 
+void createUnit(Unit *unit, int hp, int damage, int x, int y, char ap){
+    unit->hp = hp;
+    unit->damage = damage;
+    unit->x = x;
+    unit->y = y;
+    unit->ap = ap;
+    map[x][y] = ap;
+}
 
 void printMap(){
     printf("Score = %d\n", score);
@@ -71,6 +78,7 @@ void _moveTo(int _x, int _y){
     pac.y = _y;
     // Проверяем добавить ли очки
     addScore();
+    // Проверяем не столкнулись ли мы с противником
     // Двигаем пакмана
     map[pac.x][pac.y] = '@';
     // Перерисовываем карту
@@ -108,7 +116,9 @@ void moveTo(char dir){
 int main(){
     createUnit(&pac, 100, 25, 5, 7, '@');
 
-    map[pac.x][pac.y] = pac.ap;
+    Unit ghost;
+    createUnit(&ghost, 50, 50, 7, 3, '0');
+
     printMap();
     char dir;
 
